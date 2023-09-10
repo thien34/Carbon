@@ -1,0 +1,33 @@
+@startuml
+!define AWSPUML https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v14.0
+participant User
+participant BridgeContract
+participant IPFS
+participant Verifier
+
+alt Register Carbon Credits
+
+User -> BridgeContract: Submit carbon credits data
+activate BridgeContract
+
+BridgeContract -> IPFS: Store metadata
+activate IPFS
+IPFS --> BridgeContract: IPFS CID
+
+BridgeContract -> BridgeContract: Emit CarbonCreditsRegistered event
+
+end
+
+alt Verify Carbon Credits 
+  Verifier -> IPFS: Review carbon credits data
+  activate Verifier
+  IPFS --> Verifier: Carbon credits data
+  
+  Verifier -> BridgeContract: Sign carbon credits
+  BridgeContract -> BridgeContract: Emit CarbonCreditsSigned event
+  deactivate Verifier
+end
+
+deactivate BridgeContract
+
+@enduml

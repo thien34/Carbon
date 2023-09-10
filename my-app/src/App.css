@@ -1,0 +1,16 @@
+.App {
+  text-align: center;
+}
+
+main {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+    align-items: center;
+  }
+}

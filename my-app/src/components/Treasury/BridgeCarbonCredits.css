@@ -1,0 +1,49 @@
+.bridge-carbon-credits {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bridge-carbon-credits h2 {
+    margin-bottom: 1rem;
+}
+
+.bridge-carbon-credits form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.bridge-carbon-credits label {
+    margin-bottom: 0.5rem;
+}
+
+.bridge-carbon-credits input {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.bridge-carbon-credits button {
+    padding: 0.5rem 1rem;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.bridge-carbon-credits button:hover {
+    background-color: #3f9142;
+}

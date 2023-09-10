@@ -1,0 +1,36 @@
+@startuml
+!define AWSPUML https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v15.0.0/Legacy/
+
+actor User
+
+package "Frontend" {
+[User Interface] as UI
+}
+
+database IPFS {
+[Carbon Credit Project Data] as CCPD
+}
+
+cloud "TRON Blockchain" {
+[Carbon Credit Bridge Contract] as BridgeContract
+[Wrapper Contract (Toucan, GoldStandard, etc.)] as WrapperContract
+[ERC1155 Token Contract] as ERC1155Contract
+[Offset Service Contract] as OffsetServiceContract
+}
+
+User --> UI : Interact with dApp
+UI --> OffsetServiceContract : Trigger Offset Service
+UI --> ERC1155Contract : Interact with Carbon Credit tokens
+UI --> WrapperContract : Interact with Wrapper Contract
+UI --> BridgeContract : Interact with Bridge Contract
+UI --> IPFS : Access Carbon Credit Project Data
+
+WrapperContract --> CCPD : Store and Retrieve Project Data (CID)
+
+BridgeContract --> WrapperContract : Bridge Carbon Credits
+BridgeContract --> ERC1155Contract : Mint and Burn Carbon Credit tokens
+
+OffsetServiceContract --> ERC1155Contract : Burn Carbon Credits for Offsetting
+OffsetServiceContract --> WrapperContract : Verify and Record Offsetting
+
+@enduml

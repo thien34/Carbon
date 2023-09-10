@@ -1,0 +1,30 @@
+@startuml
+actor User
+actor Backend
+participant GoldStandardAPI
+participant GoldStandardWrapperContract
+participant BridgeContract
+participant ERC1155Contract
+
+User -> Backend: Initiate tokenization process (Gold Standard carbon credits)
+Backend -> GoldStandardAPI: Retrieve carbon credit data
+GoldStandardAPI -> Backend: Return carbon credit data
+Backend -> GoldStandardWrapperContract: Create GoldStandardWrapperContract with carbon credit data
+GoldStandardWrapperContract -> Backend: Return GoldStandardWrapperContract address
+Backend -> GoldStandardAPI: retire(carbonCreditId, amount, attribute = GoldStandardWrapperContractAddress)
+GoldStandardAPI -> Backend: callback(successfully retired)
+
+Backend -> BridgeContract: Create BridgeContract with GoldStandardWrapperContract address
+BridgeContract -> Backend: Return BridgeContract address
+
+Backend -> GoldStandardWrapperContract: Approve BridgeContract to tokenize carbon credits
+
+Backend -> BridgeContract: Call `mint` function with carbon credit data
+BridgeContract -> GoldStandardWrapperContract: Confirm carbon credit tokenization
+
+
+BridgeContract -> ERC1155Contract: Create new ERC-1155 tokens
+ERC1155Contract -> BridgeContract: Return token ID
+BridgeContract -> Backend: Update token supply
+Backend -> User: Tokenization complete
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+actor User
+actor Backend
+participant ToucanBCTContract
+participant WrappedBCTContract
+participant BridgeContract
+participant ERC1155Contract
+
+User -> Backend: Initiate tokenization process (Toucan BCT)
+Backend -> ToucanBCTContract: Check BCT token balance
+ToucanBCTContract -> Backend: Return BCT token balance
+Backend -> WrappedBCTContract: Create WrappedBCTContract with BCT balance
+WrappedBCTContract -> Backend: Return WrappedBCTContract address
+Backend -> BridgeContract: Create BridgeContract with WrappedBCTContract address
+BridgeContract -> Backend: Return BridgeContract address
+Backend -> WrappedBCTContract: Approve BridgeContract to transfer BCT tokens
+Backend -> BridgeContract: Call `mint` function with BCT balance
+BridgeContract -> WrappedBCTContract: Transfer BCT tokens from WrappedBCTContract
+WrappedBCTContract -> ToucanBCTContract: Burn original BCT tokens
+BridgeContract -> ERC1155Contract: Create new ERC-1155 tokens
+ERC1155Contract -> BridgeContract: Return token ID
+BridgeContract -> Backend: Update token supply
+Backend -> User: Tokenization complete
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+
+actor Buyer
+actor Seller
+
+Seller -> MarketplaceContract: Sell CO2 Tokens
+
+box "Smart Contracts" #LightBlue
+  participant MarketplaceContract
+  participant ERC20CO2Token
+end box
+
+activate MarketplaceContract
+
+MarketplaceContract -> MarketplaceContract: Create Sell Order
+Seller <-- MarketplaceContract: Sell Order Created
+
+Buyer -> MarketplaceContract: Execute Trade
+Buyer -> MarketplaceContract: Transfer Funds
+
+Seller <-- MarketplaceContract: Receive Funds
+
+MarketplaceContract -> ERC20CO2Token: Transfer CO2 Tokens from Seller to Buyer
+activate ERC20CO2Token
+
+Buyer <-- MarketplaceContract: Receive CO2 Tokens
+
+deactivate MarketplaceContract
+deactivate ERC20CO2Token
+
+@enduml

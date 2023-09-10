@@ -1,0 +1,11 @@
+@startuml
+!define AWSPUML https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v15.0/dist
+!includeurl AWSPUML/AWSCommon.puml
+
+actor User
+
+User -> WrapperContract: withdrawAndBurnBCT(amount)
+WrapperContract -> WrappedBCTTokenContract: transferFrom(User, WrapperContract, amount)
+WrapperContract -> CarbonCreditBridge: burnWrappedBCT(amount)
+CarbonCreditBridge -> ToucanBCTTokenContract: burn(amount)
+@enduml

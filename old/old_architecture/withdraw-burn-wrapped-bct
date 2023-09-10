@@ -1,0 +1,9 @@
+@startuml
+
+actor User
+
+User -> WrapperContract: withdrawBCT(amount)
+WrapperContract -> WrappedBCTTokenContract: transferFrom(User, WrapperContract, amount)
+WrapperContract -> CarbonCreditBridge: burnWrappedBCT(amount)
+CarbonCreditBridge -> ToucanBCTTokenContract: transfer(User, amount)
+@enduml

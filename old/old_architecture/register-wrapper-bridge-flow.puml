@@ -1,0 +1,64 @@
+@startuml
+!define AWSPUML https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v15.0/dist
+!includeurl AWSPUML/AWSCommon.puml
+
+actor Issuer
+
+entity GoldStandardPlatformContract as GoldStandard
+entity GoldStandardWrapperContract as Wrapper
+entity CarbonCreditBridgeContract as Bridge
+entity SenkenERC20TokenContract as Senken
+entity ToucanERC20TokenContract as Toucan
+entity ERC20WrapperContract as ERC20Wrapper
+
+Issuer -> GoldStandard: Register Carbon Credits
+activate GoldStandard
+GoldStandard --> Issuer: Carbon Credits Registered
+deactivate GoldStandard
+
+Issuer -> Wrapper: Wrap Carbon Credits
+activate Wrapper
+Wrapper -> GoldStandard: Request Carbon Credits
+activate GoldStandard
+GoldStandard --> Wrapper: Carbon Credits Transferred
+deactivate GoldStandard
+Wrapper --> Issuer: Carbon Credits Wrapped
+deactivate Wrapper
+
+Issuer -> Bridge: Register and Mint Carbon Credits
+activate Bridge
+Bridge -> Wrapper: Request Wrapped Carbon Credits
+activate Wrapper
+Wrapper --> Bridge: Wrapped Carbon Credits Transferred
+deactivate Wrapper
+Bridge --> Issuer: ERC20 CO2 Tokens Minted
+deactivate Bridge
+
+Issuer -> ERC20Wrapper: Wrap Senken ERC20 Carbon Credits
+activate ERC20Wrapper
+ERC20Wrapper -> Senken: Request Senken Carbon Credits
+activate Senken
+Senken --> ERC20Wrapper: Senken Carbon Credits Transferred
+deactivate Senken
+ERC20Wrapper --> Issuer: Senken Carbon Credits Wrapped
+deactivate ERC20Wrapper
+
+Issuer -> ERC20Wrapper: Wrap Toucan ERC20 Carbon Credits
+activate ERC20Wrapper
+ERC20Wrapper -> Toucan: Request Toucan Carbon Credits
+activate Toucan
+Toucan --> ERC20Wrapper: Toucan Carbon Credits Transferred
+deactivate Toucan
+ERC20Wrapper --> Issuer: Toucan Carbon Credits Wrapped
+deactivate ERC20Wrapper
+
+Issuer -> Bridge: Register and Mint Senken and Toucan Carbon Credits
+activate Bridge
+Bridge -> ERC20Wrapper: Request Wrapped Senken and Toucan Carbon Credits
+activate ERC20Wrapper
+ERC20Wrapper --> Bridge: Wrapped Senken and Toucan Carbon Credits Transferred
+deactivate ERC20Wrapper
+Bridge --> Issuer: ERC20 CO2 Tokens Minted for Senken and Toucan Carbon Credits
+deactivate Bridge
+
+@enduml

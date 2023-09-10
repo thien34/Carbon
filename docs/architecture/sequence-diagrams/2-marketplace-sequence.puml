@@ -1,0 +1,33 @@
+@startuml
+!pragma use_vertical_layout
+
+actor User
+participant MarketplaceFrontend
+participant MarketplaceContract
+participant CarbonCreditBridge
+participant ERC1155TokenContract
+
+User -> MarketplaceFrontend: Browse available carbon credits
+MarketplaceFrontend -> MarketplaceContract: Retrieve list of available carbon credits
+MarketplaceContract --> MarketplaceFrontend: Return available carbon credits
+MarketplaceFrontend --> User: Display available carbon credits
+
+User -> MarketplaceFrontend: Select carbon credits to buy/sell/trade
+MarketplaceFrontend -> MarketplaceContract: Submit buy/sell/trade order
+MarketplaceContract -> ERC1155TokenContract: Execute buy/sell/trade transactions
+
+alt Buy Carbon Credits
+User -> MarketplaceContract: Approve required TRX/USDT
+MarketplaceContract -> ERC1155TokenContract: Transfer purchased carbon credits to User
+else Sell Carbon Credits
+User -> MarketplaceContract: Approve required carbon credits
+MarketplaceContract -> ERC1155TokenContract: Transfer sold carbon credits from User
+MarketplaceContract -> User: Transfer received TRX/USDT
+else Trade Carbon Credits
+User -> MarketplaceContract: Approve required carbon credits
+MarketplaceContract -> ERC1155TokenContract: Transfer traded carbon credits between Users
+end
+
+MarketplaceContract --> MarketplaceFrontend: Return updated carbon credit balances
+MarketplaceFrontend --> User: Display updated carbon credit balances and order status
+@enduml

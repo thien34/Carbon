@@ -1,0 +1,37 @@
+@startuml
+
+class CarbonCreditBridgeContract {
+  +bridgeCarbonCredits(uint256 amount, string memory projectID, address originalTokenAddress)
+  +unbridgeCarbonCredits(uint256 amount, string memory projectID)
+  +addWrapperContract(address wrapperAddress)
+  +mintNFTReceipt(address to, uint256[] calldata tokenIds, uint256[] calldata amounts)
+}
+
+class WrapperContract {
+  +depositCarbonCredits(uint256 amount)
+  +withdrawCarbonCredits(uint256 amount)
+  +getCarbonCreditData() : string
+}
+
+class ERC1155TokenContract {
+  +mintFungibleToken(address to, uint256 id, uint256 amount, bytes calldata data)
+  +mintNonFungibleToken(address to, uint256 id, bytes calldata data)
+  +burnFungibleToken(address account, uint256 id, uint256 amount)
+  +burnNonFungibleToken(address account, uint256 id)
+}
+
+class OffsetServiceContract {
+  +offsetCarbonFootprint(uint256[] calldata tokenIds, uint256[] calldata amounts)
+}
+
+class IPFS {
+  -CID: string
+}
+
+CarbonCreditBridgeContract "1" --> "1" WrapperContract : interacts with
+CarbonCreditBridgeContract "1" --> "1" ERC1155TokenContract : interacts with
+OffsetServiceContract "1" --> "1" WrapperContract : interacts with
+OffsetServiceContract "1" --> "1" ERC1155TokenContract : interacts with
+WrapperContract "1" --> "1" IPFS : stores & retrieves data
+
+@enduml

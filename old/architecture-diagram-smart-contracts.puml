@@ -1,0 +1,25 @@
+@startuml
+
+!include https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v15.0/dist/AWSCommon.puml
+
+actor Buyer
+actor Seller
+actor Issuer
+actor Verifier
+
+rectangle "Carbon Credits Marketplace" {
+    database "IPFS" as ipfs
+    
+    Issuer -> BridgeContract: Register, Mint & Offer Carbon Credits
+    Verifier -> BridgeContract: Verify Carbon Credits
+    
+    Buyer -> MarketplaceContract: Buy CO2 Tokens
+    Seller -> MarketplaceContract: Sell CO2 Tokens
+    
+    MarketplaceContract -right-> ERC20CO2Token: Mint/Burn/Transfer CO2 Tokens
+    
+    BridgeContract --> ipfs: Store/Retrieve Carbon Credits Metadata
+    MarketplaceContract --> ipfs: Access Carbon Credits Metadata
+}
+
+@enduml

@@ -1,0 +1,41 @@
+@startuml
+
+class MasterContract {
+    -factory: address
+    +deployBridge(): address
+    +deployERC20Token(): address
+}
+
+class BridgeContract {
+    -credits: mapping(uint256 => CarbonCredit)
+    -nextCreditId: uint256
+    +registerCarbonCredits(metadataURI: string, issuer: address): void
+    +mintAndOfferCarbonCredits(token: address, amount: uint256): void
+    +verifyCarbonCredits(creditID: uint256, verifier: address): void
+    -_burn(token: address, amount: uint256): void
+}
+
+class ERC20CO2Token {
+    -balances: mapping(address => uint256)
+    -allowances: mapping(address => mapping(address => uint256))
+    +mint(account: address, amount: uint256): void
+    +burn(account: address, amount: uint256): void
+    +transfer(sender: address, recipient: address, amount: uint256): bool
+}
+
+class MarketplaceContract {
+    -orders: mapping(uint256 => Order)
+    -tokenPrices: mapping(address => uint256)
+    -nextOrderId: uint256
+    +setTokenPrice(token: address, price: uint256): void
+    +buyCarbonCredits(token: address, amount: uint256): void
+    +sellCarbonCredits(token: address, amount: uint256, price: uint256): void
+    +executeTrade(token: address, amount: uint256): void
+}
+
+MasterContract "1" --> "0..*" BridgeContract
+MasterContract "1" --> "0..*" ERC20CO2Token
+BridgeContract "1" --> "1" MarketplaceContract
+MarketplaceContract "1" --> "0..*" ERC20CO2Token
+
+@enduml

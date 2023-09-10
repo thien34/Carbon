@@ -1,0 +1,41 @@
+.buy-carbon-credits {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 2rem auto;
+  }
+  
+  .buy-carbon-credits h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .buy-carbon-credits form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .buy-carbon-credits label {
+    margin-bottom: 0.5rem;
+  }
+  
+  .buy-carbon-credits input,
+  .buy-carbon-credits select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .buy-carbon-credits button {
+    background-color: #4caf50;
+    color: white;
+    padding: 0.5
+  }

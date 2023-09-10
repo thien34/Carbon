@@ -1,0 +1,25 @@
+Marketplace Smart Contracts:
+a. Develop a smart contract for the marketplace that allows users to buy, sell, and burn tokenized carbon credits (ERC20) on the TRON network.
+b. Implement an interface for users to view and manage their carbon credit holdings, transactions, and balances.
+
+Carbon Credits and Tokenization:
+a. Develop a mechanism for registering off-chain carbon credits as ERC20 tokens, representing the on-chain tokenized carbon credits.
+b. Implement a smart contract for tokenizing carbon credits by minting ERC20 tokens in proportion to the amount of carbon credits registered.
+
+Bridge Contract for Cross-Chain Interoperability:
+a. Develop a bridge contract that enables the tokenization of BCT tokens from the Toucan protocol and MOSS tokens from other blockchains onto the TRON network.
+b. Ensure secure and seamless token transfers between the TRON network and other supported blockchains.
+
+ERC1155 NFTs for Carbon Credit Ownership:
+a. Develop a smart contract for minting ERC1155 NFTs that represent ownership of the tokenized carbon credits (ERC20).
+b. Integrate IPFS for storing metadata related to the carbon credits and the verification status.
+
+Burning Contract for Carbon Offsetting:
+a. Develop a smart contract for burning ERC20 tokens, allowing users to offset their carbon footprint.
+b. Implement an interface for users to interact with the burning contract and view the immutable receipts of the burned carbon credits.
+
+Security and Compliance:
+a. Ensure the security of all smart contracts and user data on the platform.
+b. Implement measures to prevent fraudulent activity and comply with all applicable laws and regulations related to carbon credits and carbon markets.
+
+Please note that the requirement for staking and governance has been removed for the MVP, as per your request.

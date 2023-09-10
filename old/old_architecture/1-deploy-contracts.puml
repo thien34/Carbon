@@ -1,0 +1,39 @@
+@startuml
+!define AWSPUML https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v14.0
+participant User
+participant MasterContract
+participant BridgeContract
+participant PoolContract
+participant MarketplaceContract
+participant ERC20CO2TokenContract
+participant ERC1155TokenContract
+participant CarbonSwapBridgeContract
+
+User -> MasterContract: Deploy MasterContract
+activate MasterContract
+
+User -> MasterContract: Deploy BridgeContract
+activate BridgeContract
+MasterContract -> BridgeContract: Initialize
+
+User -> MasterContract: Deploy PoolContract
+activate PoolContract
+MasterContract -> PoolContract: Initialize
+
+User -> MasterContract: Deploy MarketplaceContract
+activate MarketplaceContract
+MasterContract -> MarketplaceContract: Initialize
+
+User -> MasterContract: Deploy ERC20CO2TokenContract
+activate ERC20CO2TokenContract
+MasterContract -> ERC20CO2TokenContract: Initialize
+
+User -> MasterContract: Deploy ERC1155TokenContract
+activate ERC1155TokenContract
+MasterContract -> ERC1155TokenContract: Initialize
+
+User -> MasterContract: Deploy CarbonSwapBridgeContract
+activate CarbonSwapBridgeContract
+MasterContract -> CarbonSwapBridgeContract: Initialize
+
+@enduml

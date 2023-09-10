@@ -1,0 +1,28 @@
+@startuml
+
+actor Issuer
+
+Issuer -> BridgeContract: Request to Offer Carbon Credits
+activate BridgeContract
+
+box "Smart Contracts" #LightBlue
+  participant BridgeContract
+  participant ERC20CO2Token
+  participant MarketplaceContract
+end box
+
+BridgeContract -> ERC20CO2Token: Mint CO2 Tokens
+activate ERC20CO2Token
+
+BridgeContract <-- ERC20CO2Token: CO2 Tokens Minted
+
+BridgeContract -> MarketplaceContract: Offer Carbon Credits
+activate MarketplaceContract
+
+MarketplaceContract -> MarketplaceContract: Create Carbon Credits Offer
+BridgeContract <-- MarketplaceContract: Carbon Credits Offered
+deactivate BridgeContract
+deactivate MarketplaceContract
+deactivate ERC20CO2Token
+
+@enduml

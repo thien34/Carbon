@@ -1,0 +1,24 @@
+@startuml
+
+actor User
+
+User -> MarketplaceContract: Buy CO2 Tokens
+
+box "Smart Contracts" #LightBlue
+  participant MarketplaceContract
+  participant ERC20CO2Token
+end box
+
+activate MarketplaceContract
+
+User -> MarketplaceContract: Transfer Funds
+
+MarketplaceContract -> ERC20CO2Token: Transfer CO2 Tokens to User
+activate ERC20CO2Token
+
+User <-- MarketplaceContract: Receive CO2 Tokens
+deactivate MarketplaceContract
+
+deactivate ERC20CO2Token
+
+@enduml

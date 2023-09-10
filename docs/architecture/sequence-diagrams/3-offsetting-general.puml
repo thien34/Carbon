@@ -1,0 +1,34 @@
+@startuml
+!pragma use_vertical_layout
+
+actor User
+participant OffsetServiceFrontend
+participant OffsetServiceContract
+participant ERC1155TokenContract
+participant CarbonCreditRegistry
+participant CarbonCreditWrapper
+
+User -> OffsetServiceFrontend: Specify carbon footprint to offset
+OffsetServiceFrontend -> OffsetServiceContract: Retrieve available carbon credits
+OffsetServiceContract -> ERC1155TokenContract: Query carbon credit balances
+ERC1155TokenContract --> OffsetServiceContract: Return available carbon credits
+OffsetServiceContract --> OffsetServiceFrontend: Return available carbon credits
+OffsetServiceFrontend --> User: Display available carbon credits
+
+User -> OffsetServiceFrontend: Select mix of carbon credits to use for offsetting
+OffsetServiceFrontend -> OffsetServiceContract: Submit offset request with chosen carbon credit mix
+OffsetServiceContract -> ERC1155TokenContract: Burn selected carbon credits from User's balance
+
+OffsetServiceContract -> CarbonCreditWrapper: Verify and record the offsetting of original carbon credits (Toucan BCT, Gold Standard, etc.)
+CarbonCreditWrapper -> CarbonCreditRegistry: Update the offset status of the original carbon credits
+
+OffsetServiceContract -> ERC1155TokenContract: Mint NFT receipt with details of offset transaction
+ERC1155TokenContract --> OffsetServiceContract: Return NFT receipt ID
+OffsetServiceContract --> OffsetServiceFrontend: Return NFT receipt ID and updated carbon credit balances
+OffsetServiceFrontend --> User: Display NFT receipt ID and updated carbon credit balances
+
+User -> OffsetServiceFrontend: View NFT receipt details
+OffsetServiceFrontend -> ERC1155TokenContract: Retrieve NFT receipt data
+ERC1155TokenContract --> OffsetServiceFrontend: Return NFT receipt data
+OffsetServiceFrontend --> User: Display NFT receipt details
+@enduml
